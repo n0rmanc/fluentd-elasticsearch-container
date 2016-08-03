@@ -42,9 +42,9 @@ echo "
 echo "
 <match **.*>
   @type copy
-  <store>
-    @type stdout
-  </store>
+  # <store>
+  #  @type stdout
+  # </store>
   <store>
     @type elasticsearch
     host $ES_HOST
