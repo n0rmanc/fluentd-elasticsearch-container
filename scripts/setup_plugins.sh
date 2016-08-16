@@ -30,7 +30,7 @@ echo "
 " >> $FLUENT_CONF_FILE
 
 echo "
-<filter *parse>
+<filter **.parse>
   type parser
   format rails_log_to_time
   time_format %Y-%m-%dT%H:%M:%S.%N
