@@ -20,15 +20,16 @@ module Fluent
         output = /(\d{4})-(\d{2})-(\d{2})( |T)*(\d{2}):(\d{2}):(\d{2}).(\d{3,})/.match(input).to_s
         output = output.tr(' ', 'T')
         # Here is some workaroud to avoid log cannot be parsed.
-        # So we cached parsed time as time of log cannot be parsed.
+        # So we cached success parsed time and
+        # use it as timestamp when logs has no timestamp.
         if !output.nil? && output.strip != ''
-          # If log can be pased, yield time of log and cached it in @@cached_time
+          # If timestamp parses successfully, yield timestamp and cached it
           time = @time_parser.parse(output)
           @@cached_time = [time, output]
           yield time, output
         else
           # Increate cached time 1 millisecond
-          # and set it as current log time.
+          # and set it as current log timestamp.
           time = Time.parse @@cached_time[1]
           tmp = time.to_f
           tmp += 0.001
